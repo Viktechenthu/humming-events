@@ -54,6 +54,19 @@ const gallery: GalleryItem[] = [
   { src: "/gallery/photo-1.jpg", alt: "Photographer shooting a couple at a wedding", caption: "Candid wedding photography" },
 ];
 
+const YOUTUBE_CHANNEL = "https://www.youtube.com/@hummingevents3788";
+
+const spotlightVideos = [
+  {
+    id: "5G036XoSCXk",
+    title: "Kartik Aaryan's sister's wedding — bride's entry with her brother",
+  },
+  {
+    id: "r-jE0WZMID4",
+    title: "The most viral wedding of 2025 — Gwalior",
+  },
+];
+
 const steps = [
   { n: "01", title: "Tell us your dream", desc: "Share your vision, date and budget — over WhatsApp, a call, or the booking form below." },
   { n: "02", title: "We design the plan", desc: "Venue, theme, décor and vendors curated into a plan (and quote) tailored to you." },
@@ -208,6 +221,62 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Celebrity spotlight */}
+      <section id="videos" className="scroll-mt-24 bg-plum-dark py-20 md:py-28">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-gold-light">
+                Celebrity spotlight
+              </p>
+              <h2 className="mt-3 font-display text-4xl text-cream md:text-5xl">
+                Kartik Aaryan&apos;s sister&apos;s wedding —{" "}
+                <span className="italic text-gold-light">planned by us</span>
+              </h2>
+              <div className="gold-rule my-6 w-32" />
+              <p className="text-lg leading-relaxed text-cream/80">
+                In December 2025, Humming Events had the honour of crafting the
+                Gwalior wedding of Dr. Kritika Tiwari — Bollywood star Kartik
+                Aaryan&apos;s sister. From the bride&apos;s emotional entry with
+                her brother to the grand celebrations that followed, it became
+                one of the most talked-about weddings of the year.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-cream/80">
+                Watch the moments below, straight from our YouTube channel.
+              </p>
+              <a
+                href={YOUTUBE_CHANNEL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#FF0000] px-7 py-3 font-medium text-white transition hover:brightness-90"
+              >
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden>
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z" />
+                </svg>
+                Watch more on YouTube
+              </a>
+            </div>
+            <div className="flex flex-wrap justify-center gap-6">
+              {spotlightVideos.map((v) => (
+                <div key={v.id} className="w-[260px] sm:w-[280px]">
+                  <div className="overflow-hidden rounded-2xl border border-cream/15 shadow-2xl shadow-black/40">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                      title={v.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="aspect-[9/16] w-full"
+                    />
+                  </div>
+                  <p className="mt-3 text-center text-sm text-cream/70">{v.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How it works */}
       <section className="bg-cream-dark py-20">
         <div className="mx-auto max-w-6xl px-5">
@@ -313,6 +382,15 @@ export default function Home() {
           <a href={PHONE_LINK} className="hover:text-gold-light">{PHONE}</a>
           {" · "}
           <a href={`mailto:${EMAIL}`} className="hover:text-gold-light">{EMAIL}</a>
+          {" · "}
+          <a
+            href={YOUTUBE_CHANNEL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gold-light"
+          >
+            YouTube
+          </a>
         </p>
         <p className="mt-4 text-cream/40">
           © {new Date().getFullYear()} Humming Events, Gwalior. All rights reserved.
