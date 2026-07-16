@@ -9,12 +9,15 @@ export default function Gallery({ items: defaults }: { items: GalleryItem[] }) {
   const [items, setItems] = useState<GalleryItem[]>(defaults);
   const [active, setActive] = useState<number | null>(null);
 
-  // Photos uploaded via /admin (Vercel Blob) replace the built-in set.
+  // Photos managed via /admin (Vercel Blob) are authoritative. Once Blob is
+  // configured, its contents replace the built-in set exactly — including when
+  // it's empty — so photos deleted in the admin actually leave the gallery.
+  // The built-in photos are only a fallback for when Blob isn't set up.
   useEffect(() => {
-    fetch("/api/gallery")
+    fetch(`/api/gallery?t=${Date.now()}`, { cache: "no-store" })
       .then((r) => r.json())
       .then((j) => {
-        if (Array.isArray(j.photos) && j.photos.length > 0) {
+        if (j.configured && Array.isArray(j.photos)) {
           setItems(
             j.photos.map((p: { src: string; caption: string }) => ({
               src: p.src,
@@ -44,6 +47,17 @@ export default function Gallery({ items: defaults }: { items: GalleryItem[] }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [active, close, step]);
+
+  if (items.length === 0) {
+    return (
+      <div className="rounded-2xl border border-plum/10 bg-white/60 p-12 text-center">
+        <p className="font-display text-2xl text-plum">Photos coming soon</p>
+        <p className="mt-2 text-plum-dark/60">
+          New event photos are on their way — check back shortly.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <>
