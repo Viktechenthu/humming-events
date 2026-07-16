@@ -26,16 +26,16 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-plum-dark/95 shadow-lg shadow-black/20 backdrop-blur"
-          : "bg-gradient-to-b from-black/60 to-transparent"
+          ? "bg-white/90 shadow-lg shadow-plum/10 backdrop-blur"
+          : "bg-white/60 backdrop-blur"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <a href="#home" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold-light/70 bg-plum text-lg font-semibold text-gold-light font-display">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-blush text-lg font-semibold text-plum font-display">
             H
           </span>
-          <span className="leading-tight text-cream">
+          <span className="leading-tight text-plum-dark">
             <span className="block font-display text-xl tracking-wide">
               Humming Events
             </span>
@@ -45,12 +45,12 @@ export default function Navbar() {
           </span>
         </a>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-7 md:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm uppercase tracking-widest text-cream/90 transition hover:text-gold-light"
+                className="text-sm uppercase tracking-widest text-plum-dark/80 transition hover:text-rose"
               >
                 {l.label}
               </a>
@@ -69,7 +69,7 @@ export default function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen(!open)}
-          className="text-cream md:hidden"
+          className="text-plum-dark md:hidden"
         >
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             {open ? (
@@ -82,13 +82,13 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <ul className="space-y-1 bg-plum-dark/95 px-5 pb-5 backdrop-blur md:hidden">
+        <ul className="space-y-1 bg-white/95 px-5 pb-5 backdrop-blur md:hidden">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-lg px-3 py-2.5 text-sm uppercase tracking-widest text-cream/90 hover:bg-white/10"
+                className="block rounded-lg px-3 py-2.5 text-sm uppercase tracking-widest text-plum-dark/80 hover:bg-blush"
               >
                 {l.label}
               </a>

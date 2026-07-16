@@ -5,8 +5,27 @@ import { useCallback, useEffect, useState } from "react";
 
 export type GalleryItem = { src: string; alt: string; caption: string };
 
-export default function Gallery({ items }: { items: GalleryItem[] }) {
+export default function Gallery({ items: defaults }: { items: GalleryItem[] }) {
+  const [items, setItems] = useState<GalleryItem[]>(defaults);
   const [active, setActive] = useState<number | null>(null);
+
+  // Photos uploaded via /admin (Vercel Blob) replace the built-in set.
+  useEffect(() => {
+    fetch("/api/gallery")
+      .then((r) => r.json())
+      .then((j) => {
+        if (Array.isArray(j.photos) && j.photos.length > 0) {
+          setItems(
+            j.photos.map((p: { src: string; caption: string }) => ({
+              src: p.src,
+              alt: p.caption || "Humming Events gallery photo",
+              caption: p.caption || "Humming Events",
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const close = useCallback(() => setActive(null), []);
   const step = useCallback(
